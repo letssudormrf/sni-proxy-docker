@@ -4,9 +4,10 @@ SNI=($SNI)
 SERVER=${SERVER:-'*'}
 PORT=${PORT:-"443"}
 
-mkdir -p /tmp/sniproxy/
-touch /tmp/sniproxy/sniproxy.conf
-cat > /tmp/sniproxy/sniproxy.conf << EOF
+if [ ! -d sniproxy ]; then
+mkdir sniproxy
+touch sniproxy/sniproxy.conf
+cat > sniproxy/sniproxy.conf << EOF
 pidfile /tmp/sniproxy/sniproxy.pid
 
 error_log {
@@ -26,12 +27,13 @@ table {
 EOF
 
 if [ "$SNI" == "" ];then
-	sed -i "16s/^/.* $SERVER:$PORT\n/" /tmp/sniproxy/sniproxy.conf
+	sed -i "16s/^/.* $SERVER:$PORT\n/" sniproxy/sniproxy.conf
 fi
 
 for i in ${SNI[@]};
 do
-	sed -i "16s/^/$i $SERVER:$PORT\n/" /tmp/sniproxy/sniproxy.conf
+	sed -i "16s/^/$i $SERVER:$PORT\n/" sniproxy/sniproxy.conf
 done
+fi
 
-/usr/sbin/sniproxy -c /tmp/sniproxy/sniproxy.conf -f
+/usr/sbin/sniproxy -c sniproxy/sniproxy.conf -f
