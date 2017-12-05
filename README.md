@@ -11,6 +11,6 @@ Keep the Docker container running automatically after starting, add **--restart 
 
     docker run --restart always -d -p 443:8443/tcp --name ss-obfs-docker letssudormrf/sni-proxy-docker
 
-For specified multi-domain, use **-e SNI="(.*.|)example.com (.*.|)example.com.org"**.
+For specified multi-domain, use -e SNI="(.*.|)example.com (.*.|)example.com.org".
 
     docker run --restart always -d -p 443:8443/tcp -e SNI="(.*.|)example.com (.*.|)example.com.org" --name ss-obfs-docker letssudormrf/sni-proxy-docker
