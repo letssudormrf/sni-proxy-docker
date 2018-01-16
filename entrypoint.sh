@@ -36,4 +36,4 @@ do
 done
 fi
 
-/usr/sbin/sniproxy -c /tmp/sniproxy/sniproxy.conf -f
+/usr/sbin/sniproxy -c sniproxy/sniproxy.conf -f
